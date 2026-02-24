@@ -1,0 +1,245 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](color_bg1)\
+$username\
+$os\
+$shell\
+[](bg:color_bg2 fg:color_bg1)\
+$directory\
+[](bg:color_bg3 fg:color_bg2)\
+$git_branch\
+$git_status\
+[](bg:color_bg4 fg:color_bg3)\
+$c\
+$docker_context\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$kotlin\
+$nodejs\
+$nim\
+$perl\
+$php\
+$python\
+$ruby\
+$rust\
+$scala\
+$swift\
+$zig\
+[](bg:color_bg5 fg:color_bg4)\
+$package\
+[](fg:color_bg5)\
+$line_break $character"""
+
+palette = 'bielefeld-night'
+
+[palettes.bielefeld-night]
+color_text = '#ffffff'
+color_text-red = '#fb8586'
+color_text-green = '#8eea9e'
+color_bg1 = '#000000'
+color_bg2 = '#121f2c'
+color_bg3 = '#233f58'
+color_bg4 = '#2c4f6e'
+color_bg5 = '#355e84'
+color_bg6 = '#3e6e9a'
+
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+### First section (bg:color_bg1)
+[username]
+show_always = false                           # username is shown if root, connected via ssh or not the user that is logged in
+style_user = "bg:color_bg1"
+style_root = "bg:color_bg1 fg:color_text-red"
+format = '[$user ]($style)'
+
+[os]
+disabled = false
+style = "bg:color_bg1"
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = ""
+Artix = ""
+CentOS = ""
+Debian = ""
+Fedora = ""
+FreeBSD = ""
+Gentoo = ""
+Linux = ""
+Macos = ""
+Manjaro = ""
+Mint = "󰣭"
+NixOS = ""
+OpenBSD = "󰈺"
+openSUSE = ""
+Raspbian = ""
+Redhat = ""
+Ubuntu = ""
+Unknown = ""
+Windows = ""
+
+[shell]
+disabled = false
+bash_indicator = "󱆃"
+fish_indicator = "󰈺"
+powershell_indicator = ""
+cmd_indicator = ""
+unknown_indicator = "󱜻"
+style = "bg:color_bg1"
+format = "[$indicator ]($style)"
+
+
+### Second section (bg:color_bg2)
+[directory]
+style = "bg:color_bg2"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# shorten some paths
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+
+### Third section (bg:color_bg3)
+[git_branch]
+symbol = ""
+style = "bg:color_bg3"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+conflicted = "󰞇"
+ahead = "󰜷×${count}"
+behind = "󰜮×${count}"
+diverged = "󰒤 󰜷×${ahead_count} 󰜮×${behind_count})"
+untracked = "×${count}"
+stashed = ""
+modified = "×${count}"
+staged = "󰪶×${count}"
+renamed = "󰑕×${count}"
+deleted = "×${count}"
+style = "bg:color_bg3"
+format = '[$all_status $ahead_behind ]($style)'
+
+
+### Fourth section (bg:color_bg4)
+[c]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol $context ]($style)'
+
+[elixir]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[elm]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[nim]
+symbol = "󰆥"
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[perl]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[php]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[python]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[ruby]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[scala]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[swift]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+[zig]
+symbol = ""
+style = "bg:color_bg4"
+format = '[ $symbol ($version) ]($style)'
+
+
+### Fifth section (bg:color_bg5)
+[package]
+symbol = ""
+style = "bg:color_bg5"
+format = '[ $symbol ($version) ]($style)'
+
+### Second line
+[time]
+disabled = false
+time_format = "%R"
+format = '[  $time ]($style)'
+
+[character]
+disabled = false
+error_symbol = "[>](bold color_text-red)"
+success_symbol = "[>](bold color_text-green)"
