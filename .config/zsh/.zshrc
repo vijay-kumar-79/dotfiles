@@ -101,6 +101,7 @@ alias find="fd"
 alias cd="z"
 alias ztime="time zsh -i -c exit"
 alias topdf="libreoffice --headless --convert-to pdf"
+alias gs="git status"
 
 # -----------------------------------
 # Plugins Loading
@@ -108,6 +109,18 @@ alias topdf="libreoffice --headless --convert-to pdf"
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# -----------------------------------
+# Custom Functions
+# -----------------------------------
+command_not_found_handler() {
+  local input="$*"
+  isutra --smriti suggest --input "$input" --interactive
+  return 127
+}
+gacp() {
+  git add .
+  git commit -m "$1" && git push origin "${2:-main}"
+}
 # zprof
 
 # -----------------------------------

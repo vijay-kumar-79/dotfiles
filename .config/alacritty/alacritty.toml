@@ -1,6 +1,6 @@
 [window]
-padding = { x = 14, y = 12 }
-dynamic_padding = true
+# padding = { x = 14, y = 12 }
+# dynamic_padding = true
 
 [colors.primary]
 background = '#1e222a'
