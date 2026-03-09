@@ -12,14 +12,31 @@ setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
 
 # -----------------------------------
-# History
+# History and Key binds
 # -----------------------------------
 HISTFILE=$HOME/.config/zsh/.zsh_history
 HISTSIZE=20000
 SAVEHIST=20000
 
-bindkey "^[[A" up-line-or-history
-bindkey "^[[B" down-line-or-history
+bindkey "^[[A" up-line-or-search
+bindkey "^[[B" down-line-or-search
+# Move cursor one word back (Ctrl + Left)
+bindkey "^[[1;5D" backward-word
+
+# Move cursor one word forward (Ctrl + Right)
+bindkey "^[[1;5C" forward-word
+
+# Delete previous word (Ctrl + Backspace)
+# Note: Some terminals sent ^H, others send ^?
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word           # Ctrl + Delete (Delete word ahead)
+
+# Move to beginning/end of line (Home / End keys)
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+# Delete key (standard delete)
+bindkey "^[[3~" delete-char
 
 # ------------------------------------------------------------------------------
 # ⚡ Ultra-Optimized Completion System
@@ -102,6 +119,10 @@ alias cd="z"
 alias ztime="time zsh -i -c exit"
 alias topdf="libreoffice --headless --convert-to pdf"
 alias gs="git status"
+alias fuck='sudo $(fc -ln -1)'
+alias dstart="sudo systemctl start docker && sudo systemctl start docker.socket"
+alias dstop="sudo systemctl stop docker && sudo systemctl stop docker.socket"
+alias dstatus="systemctl status docker && systemctl status docker.socket"
 
 # -----------------------------------
 # Plugins Loading
@@ -112,14 +133,22 @@ source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # -----------------------------------
 # Custom Functions
 # -----------------------------------
+# Auto Correct spelling mistakes
 command_not_found_handler() {
   local input="$*"
   isutra --smriti suggest --input "$input" --interactive
   return 127
 }
+
+# git add commit and push
 gacp() {
   git add .
-  git commit -m "$1" && git push origin "${2:-main}"
+  git commit -m "$1" && git push -u origin "${2:-main}"
+}
+
+# make directory and navigate into it
+mkcd() {
+  mkdir -p "$1" && cd "$1"
 }
 # zprof
 
